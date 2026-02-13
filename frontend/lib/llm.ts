@@ -1,26 +1,48 @@
-import { AzureOpenAI } from 'openai';
 import OpenAI from 'openai';
 
 // ─── Singleton Client Cache ─────────────────────────────────
 
-let _client: OpenAI | AzureOpenAI | null = null;
+let _client: OpenAI | null = null;
 let _modelName: string = '';
+let _isReasoningModel: boolean = false;
 
-function getClient(): { client: OpenAI | AzureOpenAI; model: string } {
-  if (_client) return { client: _client, model: _modelName };
+function getClient(): { client: OpenAI; model: string; isReasoning: boolean } {
+  if (_client) return { client: _client, model: _modelName, isReasoning: _isReasoningModel };
 
   const provider = process.env.LLM_PROVIDER || 'azure';
 
   switch (provider) {
     case 'azure': {
-      const client = new AzureOpenAI({
-        apiKey: process.env.AZURE_OPENAI_API_KEY!,
-        endpoint: process.env.AZURE_OPENAI_ENDPOINT!,
-        deployment: process.env.AZURE_OPENAI_DEPLOYMENT_NAME!,
-        apiVersion: process.env.AZURE_OPENAI_API_VERSION || '2025-08-07',
+      // Use standard OpenAI client with Azure base URL for maximum compatibility.
+      // This works by pointing baseURL at the deployment endpoint;
+      // the SDK appends /chat/completions automatically.
+      const endpoint = process.env.AZURE_OPENAI_ENDPOINT!;
+      const deployment = process.env.AZURE_OPENAI_DEPLOYMENT_NAME || 'gpt-5-mini';
+      const apiVersion = process.env.AZURE_OPENAI_API_VERSION || '2025-04-01-preview';
+      const apiKey = process.env.AZURE_OPENAI_API_KEY!;
+
+      // If endpoint already includes /openai/deployments/..., use it directly.
+      // Otherwise build the full deployment URL.
+      let baseURL: string;
+      if (endpoint.includes('/openai/deployments/')) {
+        // Strip trailing /chat/completions if present
+        baseURL = endpoint.replace(/\/chat\/completions\/?$/, '');
+      } else {
+        baseURL = `${endpoint.replace(/\/$/, '')}/openai/deployments/${deployment}`;
+      }
+
+      _client = new OpenAI({
+        apiKey,
+        baseURL,
+        defaultQuery: { 'api-version': apiVersion },
+        defaultHeaders: { 'api-key': apiKey },
       });
-      _client = client;
-      _modelName = process.env.AZURE_OPENAI_DEPLOYMENT_NAME || 'gpt-5-mini';
+      _modelName = deployment;
+
+      // GPT-5-mini, o1, o3 etc. are reasoning models — they use max_completion_tokens
+      // and don't support temperature or system role the same way
+      const reasoningModels = ['gpt-5-mini', 'o1', 'o1-mini', 'o1-preview', 'o3', 'o3-mini'];
+      _isReasoningModel = reasoningModels.some(m => deployment.toLowerCase().includes(m));
       break;
     }
 
@@ -52,7 +74,7 @@ function getClient(): { client: OpenAI | AzureOpenAI; model: string } {
     }
   }
 
-  return { client: _client, model: _modelName };
+  return { client: _client, model: _modelName, isReasoning: _isReasoningModel };
 }
 
 // ─── Core LLM Call ──────────────────────────────────────────
@@ -61,8 +83,23 @@ export async function callLLM(
   systemPrompt: string,
   userPrompt: string
 ): Promise<string> {
-  const { client, model } = getClient();
+  const { client, model, isReasoning } = getClient();
 
+  // Reasoning models (gpt-5-mini, o1, o3) don't support `max_tokens` or `temperature`.
+  // They use `max_completion_tokens` and the system prompt goes as a developer message.
+  if (isReasoning) {
+    const completion = await client.chat.completions.create({
+      model,
+      messages: [
+        { role: 'developer', content: systemPrompt },
+        { role: 'user', content: userPrompt },
+      ],
+      max_completion_tokens: 16384,
+    });
+    return completion.choices[0]?.message?.content || '';
+  }
+
+  // Standard models (gpt-4o, llama, etc.)
   const completion = await client.chat.completions.create({
     model,
     messages: [
