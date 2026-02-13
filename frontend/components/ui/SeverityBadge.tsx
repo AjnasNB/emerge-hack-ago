@@ -6,16 +6,23 @@ interface SeverityBadgeProps {
 
 export default function SeverityBadge({ severity }: SeverityBadgeProps) {
   const styles = {
-    low: 'bg-blue-50 text-blue-700 ring-blue-600/20 dark:bg-blue-900/30 dark:text-blue-400 dark:ring-blue-400/20',
-    medium: 'bg-amber-50 text-amber-700 ring-amber-600/20 dark:bg-amber-900/30 dark:text-amber-400 dark:ring-amber-400/20',
-    high: 'bg-red-50 text-red-700 ring-red-600/20 dark:bg-red-900/30 dark:text-red-400 dark:ring-red-400/20',
+    low: 'bg-blue-500/10 text-blue-400 ring-1 ring-blue-500/20',
+    medium: 'bg-amber-500/10 text-amber-400 ring-1 ring-amber-500/20',
+    high: 'bg-red-500/10 text-red-400 ring-1 ring-red-500/20',
+  };
+
+  const dots = {
+    low: 'bg-blue-400',
+    medium: 'bg-amber-400',
+    high: 'bg-red-400 animate-pulse',
   };
 
   return (
     <span
-      className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold ring-1 ring-inset ${styles[severity]}`}
+      className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider ${styles[severity]}`}
     >
-      {severity.toUpperCase()}
+      <span className={`w-1.5 h-1.5 rounded-full ${dots[severity]}`} />
+      {severity}
     </span>
   );
 }

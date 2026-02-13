@@ -2,7 +2,7 @@ import { NextRequest } from 'next/server';
 import type { AnalyzeRequest } from '@/lib/types';
 import { runPipeline } from '@/lib/orchestrator';
 
-export const maxDuration = 120; // Allow up to 120 seconds for 5-agent pipeline
+export const maxDuration = 300; // GPT-5-mini reasoning model needs ~2min for 5-agent pipeline
 
 export async function POST(req: NextRequest) {
   try {

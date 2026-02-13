@@ -174,24 +174,24 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
     <div className="w-full max-w-3xl mx-auto">
       {/* Hero */}
       <div className="text-center mb-10 animate-fade-in">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 text-sm font-medium mb-6">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-sm font-medium mb-6">
           <Sparkles className="w-4 h-4" />
           AI Answer Engine Optimization
         </div>
-        <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-white mb-4">
+        <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-4">
           AEO/GEO{' '}
-          <span className="bg-gradient-to-r from-indigo-600 to-cyan-500 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-indigo-400 via-violet-400 to-cyan-400 bg-clip-text text-transparent">
             Copilot
           </span>
         </h1>
-        <p className="text-lg text-slate-500 dark:text-slate-400 max-w-xl mx-auto">
+        <p className="text-lg text-slate-400 max-w-xl mx-auto">
           Paste content or a website URL — we analyze why AI engines skip your brand and give you fix packs to get cited.
         </p>
       </div>
 
       {/* Demo Presets */}
       <div className="flex flex-wrap items-center justify-center gap-3 mb-8 animate-fade-in" style={{ animationDelay: '0.1s' }}>
-        <span className="text-xs font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wider">
+        <span className="text-xs font-medium text-slate-500 uppercase tracking-wider">
           Try a demo:
         </span>
         {DEMO_PRESETS.map((preset) => (
@@ -199,7 +199,7 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
             key={preset.name}
             type="button"
             onClick={() => loadPreset(preset)}
-            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-medium border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-indigo-300 hover:text-indigo-600 dark:hover:border-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50/50 dark:hover:bg-indigo-900/20 transition-all duration-200 cursor-pointer"
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-medium border border-slate-700 text-slate-300 hover:border-indigo-500/50 hover:text-indigo-400 hover:bg-indigo-500/10 transition-all duration-200 cursor-pointer"
           >
             <Beaker className="w-3.5 h-3.5" />
             {preset.name}
@@ -210,10 +210,10 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
       {/* Error banner */}
       {scrapeError && (
         <div className="max-w-3xl mx-auto mb-4 animate-fade-in">
-          <div className="flex items-center gap-2 px-4 py-3 rounded-xl bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/30 text-amber-700 dark:text-amber-300 text-sm">
+          <div className="flex items-center gap-2 px-4 py-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-300 text-sm">
             <AlertCircle className="w-4 h-4 flex-shrink-0" />
             <span>{scrapeError}</span>
-            <button onClick={() => setScrapeError(null)} className="ml-auto text-amber-500 hover:text-amber-700 cursor-pointer">
+            <button onClick={() => setScrapeError(null)} className="ml-auto text-amber-400 hover:text-amber-300 cursor-pointer">
               <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" /></svg>
             </button>
           </div>
@@ -222,10 +222,10 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
 
       {/* Form */}
       <form onSubmit={handleSubmit} className="animate-slide-up" style={{ animationDelay: '0.15s' }}>
-        <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-xl shadow-slate-200/50 dark:shadow-black/20 border border-slate-200/60 dark:border-slate-800 p-6 md:p-8 space-y-6">
+        <div className="bg-slate-900/70 rounded-2xl shadow-2xl shadow-black/30 border border-slate-700/50 backdrop-blur-sm p-6 md:p-8 space-y-6">
           {/* Query */}
           <div>
-            <label className="flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+            <label className="flex items-center gap-2 text-sm font-semibold text-slate-300 mb-2">
               <Search className="w-4 h-4 text-indigo-500" />
               User Query
             </label>
@@ -234,9 +234,9 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="e.g. What is the best online learning platform for corporate training?"
-              className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-400 transition-all"
+              className="w-full px-4 py-3 rounded-xl border border-slate-700 bg-slate-800/50 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500/50 transition-all"
             />
-            <p className="mt-1.5 text-xs text-slate-400 dark:text-slate-500">
+            <p className="mt-1.5 text-xs text-slate-500">
               The question a user would ask an AI assistant
             </p>
           </div>
@@ -244,7 +244,7 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
           {/* Brand Name + Engine Mode */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+              <label className="flex items-center gap-2 text-sm font-semibold text-slate-300 mb-2">
                 <Building2 className="w-4 h-4 text-indigo-500" />
                 Brand Name
               </label>
@@ -253,18 +253,18 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
                 value={brandName}
                 onChange={(e) => setBrandName(e.target.value)}
                 placeholder="e.g. LearnFlow"
-                className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-400 transition-all"
+                className="w-full px-4 py-3 rounded-xl border border-slate-700 bg-slate-800/50 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500/50 transition-all"
               />
             </div>
             <div>
-              <label className="flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+              <label className="flex items-center gap-2 text-sm font-semibold text-slate-300 mb-2">
                 <Zap className="w-4 h-4 text-indigo-500" />
                 Engine Mode
               </label>
               <select
                 value={engineMode}
                 onChange={(e) => setEngineMode(e.target.value as EngineMode)}
-                className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-400 transition-all appearance-none cursor-pointer"
+                className="w-full px-4 py-3 rounded-xl border border-slate-700 bg-slate-800/50 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500/50 transition-all appearance-none cursor-pointer"
               >
                 <option value="chat">Chat (Conversational)</option>
                 <option value="search_card">Search Card (Compact)</option>
@@ -275,10 +275,10 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
 
           {/* Target URL */}
           <div>
-            <label className="flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+            <label className="flex items-center gap-2 text-sm font-semibold text-slate-300 mb-2">
               <Globe className="w-4 h-4 text-indigo-500" />
               Website URL
-              <span className="text-xs font-normal text-slate-400">(auto-extract content)</span>
+              <span className="text-xs font-normal text-slate-500">(auto-extract content)</span>
             </label>
             <div className="flex gap-2">
               <input
@@ -286,7 +286,7 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
                 value={targetUrl}
                 onChange={(e) => setTargetUrl(e.target.value)}
                 placeholder="https://example.com/your-page"
-                className="flex-1 px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-400 transition-all"
+                className="flex-1 px-4 py-3 rounded-xl border border-slate-700 bg-slate-800/50 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500/50 transition-all"
                 onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); scrapeTarget(); } }}
               />
               <button
@@ -303,14 +303,14 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
                 {scrapingTarget ? 'Fetching...' : 'Fetch'}
               </button>
             </div>
-            <p className="mt-1.5 text-xs text-slate-400 dark:text-slate-500">
+            <p className="mt-1.5 text-xs text-slate-500">
               Paste a URL and click Fetch to auto-extract page content, or type/paste content below
             </p>
           </div>
 
           {/* Target Content */}
           <div>
-            <label className="flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+            <label className="flex items-center gap-2 text-sm font-semibold text-slate-300 mb-2">
               <FileText className="w-4 h-4 text-indigo-500" />
               Target Content
               {targetContent && (
@@ -324,16 +324,16 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
               onChange={(e) => setTargetContent(e.target.value)}
               placeholder="Paste your brand's content here, or fetch it from a URL above"
               rows={8}
-              className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-400 transition-all resize-y"
+              className="w-full px-4 py-3 rounded-xl border border-slate-700 bg-slate-800/50 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500/50 transition-all resize-y"
             />
           </div>
 
           {/* Competitor Section */}
-          <div className="border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden">
+          <div className="border border-slate-700/50 rounded-xl overflow-hidden">
             <button
               type="button"
               onClick={() => setShowCompetitors(!showCompetitors)}
-              className="w-full flex items-center justify-between px-4 py-3 text-sm font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors cursor-pointer"
+              className="w-full flex items-center justify-between px-4 py-3 text-sm font-semibold text-slate-300 hover:bg-slate-800/50 transition-colors cursor-pointer"
             >
               <span className="flex items-center gap-2">
                 <Users className="w-4 h-4 text-indigo-500" />
@@ -353,7 +353,7 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
             </button>
 
             {showCompetitors && (
-              <div className="px-4 pb-4 space-y-4 border-t border-slate-200 dark:border-slate-700 pt-4">
+              <div className="px-4 pb-4 space-y-4 border-t border-slate-700/50 pt-4">
                 {/* Search & Import button */}
                 <button
                   type="button"
@@ -378,7 +378,7 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
                 {competitors.map((comp, index) => (
                   <div
                     key={index}
-                    className="p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50 space-y-3 relative"
+                    className="p-4 rounded-xl bg-slate-800/30 border border-slate-700/30 space-y-3 relative"
                   >
                     <div className="flex items-center justify-between">
                       <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">
@@ -392,7 +392,7 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
                       <button
                         type="button"
                         onClick={() => removeCompetitor(index)}
-                        className="p-1 rounded-md text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors cursor-pointer"
+                        className="p-1 rounded-md text-slate-500 hover:text-red-400 hover:bg-red-500/10 transition-colors cursor-pointer"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
                       </button>
@@ -405,13 +405,13 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
                         value={comp.url || ''}
                         onChange={(e) => updateCompetitor(index, 'url', e.target.value)}
                         placeholder="https://competitor.com/page"
-                        className="flex-1 px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 transition-all"
+                        className="flex-1 px-3 py-2 rounded-lg border border-slate-700 bg-slate-800/50 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 transition-all"
                       />
                       <button
                         type="button"
                         onClick={() => scrapeCompetitor(index)}
                         disabled={!comp.url?.trim() || scrapingCompetitor === index}
-                        className="flex items-center gap-1 px-3 py-2 rounded-lg text-xs font-semibold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/20 hover:bg-indigo-100 dark:hover:bg-indigo-900/40 disabled:opacity-50 disabled:cursor-not-allowed transition-all cursor-pointer whitespace-nowrap"
+                        className="flex items-center gap-1 px-3 py-2 rounded-lg text-xs font-semibold text-indigo-400 bg-indigo-500/10 hover:bg-indigo-500/20 ring-1 ring-indigo-500/20 disabled:opacity-50 disabled:cursor-not-allowed transition-all cursor-pointer whitespace-nowrap"
                       >
                         {scrapingCompetitor === index ? (
                           <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -427,14 +427,14 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
                       value={comp.brand}
                       onChange={(e) => updateCompetitor(index, 'brand', e.target.value)}
                       placeholder="Competitor brand name"
-                      className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 transition-all"
+                      className="w-full px-3 py-2 rounded-lg border border-slate-700 bg-slate-800/50 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 transition-all"
                     />
                     <textarea
                       value={comp.content}
                       onChange={(e) => updateCompetitor(index, 'content', e.target.value)}
                       placeholder="Paste competitor content here or fetch from URL above..."
                       rows={4}
-                      className="w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 transition-all resize-y"
+                      className="w-full px-3 py-2 rounded-lg border border-slate-700 bg-slate-800/50 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 transition-all resize-y"
                     />
                   </div>
                 ))}
@@ -442,15 +442,15 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
                 <button
                   type="button"
                   onClick={addCompetitor}
-                  className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border-2 border-dashed border-slate-300 dark:border-slate-600 text-sm font-medium text-slate-500 dark:text-slate-400 hover:border-indigo-400 hover:text-indigo-500 dark:hover:border-indigo-500 dark:hover:text-indigo-400 transition-all cursor-pointer"
+                  className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border-2 border-dashed border-slate-700 text-sm font-medium text-slate-400 hover:border-indigo-500/50 hover:text-indigo-400 transition-all cursor-pointer"
                 >
                   <Plus className="w-4 h-4" />
                   Add Competitor Manually
                 </button>
 
                 {competitors.length === 0 && (
-                  <div className="flex items-center gap-3 p-3 rounded-lg bg-indigo-50 dark:bg-indigo-900/20">
-                    <label className="flex items-center gap-2 text-sm text-indigo-700 dark:text-indigo-300 cursor-pointer">
+                  <div className="flex items-center gap-3 p-3 rounded-lg bg-indigo-500/10 border border-indigo-500/15">
+                    <label className="flex items-center gap-2 text-sm text-indigo-300 cursor-pointer">
                       <input
                         type="checkbox"
                         checked={generateSynthetic}
@@ -468,8 +468,8 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
 
           {/* Generate Synthetic (when competitors hidden) */}
           {!showCompetitors && (
-            <div className="flex items-center gap-3 p-3 rounded-xl bg-indigo-50/50 dark:bg-indigo-900/20 border border-indigo-100 dark:border-indigo-800/30">
-              <label className="flex items-center gap-2 text-sm text-indigo-700 dark:text-indigo-300 cursor-pointer">
+            <div className="flex items-center gap-3 p-3 rounded-xl bg-indigo-500/10 border border-indigo-500/15">
+              <label className="flex items-center gap-2 text-sm text-indigo-300 cursor-pointer">
                 <input
                   type="checkbox"
                   checked={generateSynthetic}
@@ -486,7 +486,7 @@ export default function InputForm({ onSubmit, isLoading }: InputFormProps) {
           <button
             type="submit"
             disabled={!isValid || isLoading}
-            className="w-full flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl text-base font-semibold text-white bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-700 hover:to-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-indigo-500/25 transition-all duration-200 cursor-pointer"
+            className="w-full flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl text-base font-semibold text-white bg-gradient-to-r from-indigo-600 via-violet-600 to-indigo-600 hover:from-indigo-500 hover:via-violet-500 hover:to-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-indigo-500/25 transition-all duration-200 cursor-pointer"
           >
             {isLoading ? (
               <>
